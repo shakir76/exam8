@@ -2,12 +2,11 @@
 {% load static %}
 {% block title %}Просмотр{% endblock %}
 {% block nav %}
-    <li class="nav-item">
-        <a class="nav-link" href="{% url "webapp:add_review" product.pk %}">Новый отзыв </a>
-    </li>
-    {#        <li class="nav-item">#}
-    {#            <a class="nav-link" href="{% url "tracker:add_user" project.pk %}">Редактировать пользователей</a>#}
-    {#        </li>#}
+    {% if request.user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url "webapp:add_review" product.pk %}">Новый отзыв </a>
+        </li>
+    {% endif %}
 {% endblock %}
 {% block content %}
     <div class="card flex-row mt-3">
@@ -20,7 +19,7 @@
             <h5 class="card-title">Название: {{ product.name }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">Категория {{ product.get_category_display }}</h6>
             <h6 class="card-subtitle mb-2 text-muted">Описания: {{ product.description }}</h6>
-            {% if averge_ratings%}
+            {% if averge_ratings %}
                 <h6 class="card-subtitle mb-2 text-muted">Средний рейтинг: {{ averge_ratings }}</h6>
             {% else %}
                 <h6 class="card-subtitle mb-2 text-muted">Средний рейтинг: 0 </h6>

@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Q
 from django.shortcuts import render
 
@@ -34,7 +35,6 @@ class ListProduct(ListView):
             query = urlencode({'search': self.search_value})
             context["query"] = query
             context["search"] = self.search_value
-
         return context
 
     def get_search_form(self):
@@ -45,9 +45,13 @@ class ListProduct(ListView):
             return self.form.cleaned_data.get("search")
 
 
-class CreateProduct(CreateView):
+class CreateProduct(PermissionRequiredMixin, CreateView):
     form_class = ProductForm
     template_name = "product/create.html"
+
+    def has_permission(self):
+        return self.request.user.is_superuser or \
+               'moderators' in self.request.user.groups.all().values_list('name', flat=True)
 
 
 class ProductView(DetailView):
@@ -67,13 +71,21 @@ class ProductView(DetailView):
         return context
 
 
-class UpdateProduct(UpdateView):
+class UpdateProduct(PermissionRequiredMixin, UpdateView):
     form_class = ProductForm
     template_name = 'product/update.html'
     model = Product
 
+    def has_permission(self):
+        return self.request.user.is_superuser or \
+               'moderators' in self.request.user.groups.all().values_list('name', flat=True)
 
-class DeleteProduct(DeleteView):
+
+class DeleteProduct(PermissionRequiredMixin, DeleteView):
     model = Product
     template_name = 'product/delete.html'
     success_url = reverse_lazy('webapp:index')
+
+    def has_permission(self):
+        return self.request.user.is_superuser or \
+               'moderators' in self.request.user.groups.all().values_list('name', flat=True)
