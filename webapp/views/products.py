@@ -59,7 +59,8 @@ class ProductView(DetailView):
         review = Review.objects.filter(product=self.object)
         averge_ratings = 0
         for a in review:
-            averge_ratings += a.rating
+            if a.moderated:
+                averge_ratings += a.rating
         averge_ratings /= len(review)
         context['averge_ratings'] = averge_ratings
         context['reviews'] = review

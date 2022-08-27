@@ -1,6 +1,7 @@
 <h1 class="text-success">Отзывы</h1>
 <div class="row">
     {% for review in reviews %}
+        {% if review.moderated %}
         <div class="col-12 col-md-6 col-lg-4">
             <div class="card bg-warning ">
                 <div class="card-body">
@@ -20,5 +21,6 @@
                 </div>
             </div>
         </div>
+        {% endif %}
     {% endfor %}
 </div>
