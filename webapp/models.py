@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.urls import reverse
 
 STATUS_CODE = [('other', 'Разное'), ('keyboard', 'Клавиатура'), ('block', 'Блок питания'),
                ('matrix', 'Матрица'), ('battery', 'Батарейка'), ]
@@ -15,6 +16,9 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.id}. {self.name}: {self.category}"
+
+    def get_absolute_url(self):
+        return reverse('webapp:index')
 
     class Meta:
         db_table = "Product"
