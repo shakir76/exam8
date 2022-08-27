@@ -7,7 +7,7 @@ from django.utils.http import urlencode
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
 from webapp.forms import SearchForm, ProductForm
-from webapp.models import Product
+from webapp.models import Product, Review
 
 
 class ListProduct(ListView):
@@ -52,6 +52,11 @@ class CreateProduct(CreateView):
 class ProductView(DetailView):
     template_name = "product/view.html"
     model = Product
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['reviews'] = Review.objects.filter(product=self.object)
+        return context
 
 
 class UpdateProduct(UpdateView):

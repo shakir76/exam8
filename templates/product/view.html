@@ -2,9 +2,9 @@
 {% load static %}
 {% block title %}Просмотр{% endblock %}
 {% block nav %}
-    {#        <li class="nav-item">#}
-    {#            <a class="nav-link" href="{% url "tracker:add" project.pk %}">Новая задачи</a>#}
-    {#        </li>#}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url "webapp:add_review" product.pk %}">Новый отзыв </a>
+        </li>
     {#        <li class="nav-item">#}
     {#            <a class="nav-link" href="{% url "tracker:add_user" project.pk %}">Редактировать пользователей</a>#}
     {#        </li>#}
@@ -22,42 +22,5 @@
             <h6 class="card-subtitle mb-2 text-muted">Описания: {{product.description }}</h6>
         </div>
     </div>
-    {#    <p class="fw-bold">Задачи:</p>#}
-    {#    {% for task in project.project.all %}#}
-    {#        <div class="col-12 col-md-6 col-lg-4">#}
-    {#            <div class="card bg-warning ">#}
-    {#                <div class="card-body">#}
-    {#                    <h5 class="card-title"><span class="fs-3">{{ task.summary }}</span></h5>#}
-    {#                    <p>Статус: {{ task.status }}</p>#}
-    {#                    <p class="bg-warning"><a href="{% url 'tracker:view' task.pk %}"><img#}
-    {#                            src="https://ru.seaicons.com/wp-content/uploads/2015/10/Preview-icon2.png"#}
-    {#                            width="25"#}
-    {#                            height="25" alt="Просмотр"></a>#}
-    {#                        {% if request.user.is_authenticated  and request.user in project.user.all %}#}
-    {#                            <a href="{% url 'tracker:update' task.pk %}"><img#}
-    {#                                    src="https://ru.seaicons.com/wp-content/uploads/2015/11/Editing-Edit-icon.png"#}
-    {#                                    width="25"#}
-    {#                                    height="25" alt="Редактирования"></a>#}
-    {#                            <a href="{% url 'tracker:delete' task.pk %}"><img#}
-    {#                                    src="https://cdn-icons-png.flaticon.com/512/70/70757.png"#}
-    {#                                    width="25"#}
-    {#                                    height="25" alt="Удаления"></a></p>#}
-    {#                        {% endif %}#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    {% empty %}#}
-    {#        <p>Задач нету</p>#}
-    {#    {% endfor %}#}
-    {#    <h4 class="">Пользователи</h4>#}
-    {#    {% for user in project.user.all %}#}
-    {#        <div class="col-12 col-md-6 col-lg-4">#}
-    {#            <div class="card">#}
-    {#                <div class="card-body">#}
-    {#                    <h5 class="card-title"><a href="{% url 'accounts:profile_view' user.pk %}">{{ user.username }}</a>#}
-    {#                    </h5>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    {% endfor %}#}
+    {% include 'partial/list_partial.html' %}
 {% endblock %}
