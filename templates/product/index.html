@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block nav %}
-    {% if request.user.is_authenticated%}
+    {% if  user.groups.all.0.name == 'moderators' %}
         <li class="nav-item">
             <a class="nav-link" href="{% url 'webapp:create_product' %}">Добавить Продукт</a>
         </li>
@@ -20,7 +20,7 @@
                     <div class="card-body">
                         <h5 class="card-title"><span class="fs-3">{{ product.name }}</span></h5>
                         <p>Категория: {{ product.get_category_display }}</p>
-                        {% if request.user.is_authenticated %}
+                      {% if  user.groups.all.0.name == 'moderators' %}
                             <p class="bg-warning"><a href="{% url 'webapp:update_product' product.pk %}"><img
                                     src="http://s1.iconbird.com/ico/2013/6/272/w128h1281371312762PixelKit00451.png"
                                     width="25"

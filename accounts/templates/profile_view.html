@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% block title %}Профиль{% endblock %}
 {% block nav %}
+    {% if request.user.is_authenticated  %}
     <li class="nav-item">
         <a class="nav-link" href="{% url "accounts:change_profile"  %}">Редактирования</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{% url 'accounts:change_password' %}">Сменить пароль</a>
     </li>
+    {% endif %}
 {% endblock %}
 {% block content %}
     <div class="card flex-row mt-3">

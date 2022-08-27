@@ -9,7 +9,7 @@
             <div class="card bg-warning ">
                 <div class="card-body">
                     <h5 class="card-title"><span class="fs-3"><a
-                            href="{% url 'accounts:profile_view' user.pk %}">{{ review.author.username }}</a></span>
+                            href="{% url 'accounts:profile_view' review.author.pk %}">{{ review.author.username }}</a></span>
                     </h5>
                     <h6 class="card-subtitle mb-2 text-muted">Email: {{ review.author.email }}</h6>
                     <h6 class="card-subtitle mb-2 text-muted">Описания: {{ review.description }}</h6>

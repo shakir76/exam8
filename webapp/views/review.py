@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.http import urlencode
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from webapp.forms import ReviewForm, SearchForm
+from webapp.forms import ReviewForm, SearchForm, ReviewModeratForm
 from webapp.models import Review, Product
 
 
@@ -18,6 +18,7 @@ class AddReview(LoginRequiredMixin, CreateView):
     model = Review
     form_class = ReviewForm
     template_name = "reviews/create.html"
+    moderators_form = ReviewModeratForm
 
     def form_valid(self, form):
         product = get_object_or_404(Product, pk=self.kwargs.get("pk"))
@@ -29,11 +30,24 @@ class AddReview(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('webapp:view_product', kwargs={'pk': self.object.product.pk})
 
+    def get_form_class(self):
+        if 'moderators' in self.request.user.groups.all().values_list('name', flat=True):
+            return self.moderators_form
+        else:
+            return super().get_form_class()
+
 
 class UpdateReview(PermissionRequiredMixin, UpdateView):
     form_class = ReviewForm
     template_name = 'reviews/update.html'
     model = Review
+    moderators_form = ReviewModeratForm
+
+    def get_form_class(self):
+        if 'moderators' in self.request.user.groups.all().values_list('name', flat=True):
+            return self.moderators_form
+        else:
+            return super().get_form_class()
 
     def get_success_url(self):
         return reverse('webapp:view_product', kwargs={'pk': self.object.product.pk})
@@ -59,7 +73,7 @@ class DeleteReview(PermissionRequiredMixin, DeleteView):
                self.request.user == self.get_object().author
 
 
-class ListNotModerReView(PermissionRequiredMixin,ListView):
+class ListNotModerReView(PermissionRequiredMixin, ListView):
     model = Review
     template_name = "reviews/list_not_review.html"
     context_object_name = 'reviews'

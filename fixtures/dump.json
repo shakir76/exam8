@@ -1,0 +1,136 @@
+[
+{
+  "model": "webapp.product",
+  "pk": 1,
+  "fields": {
+    "name": "block",
+    "category": "battery",
+    "description": "Лучшая",
+    "avatar": "avatars/WhatsApp_Image_2022-08-20_at_20.49.54.jpeg"
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 2,
+  "fields": {
+    "name": "maslo",
+    "category": "keyboard",
+    "description": "dasd",
+    "avatar": ""
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 4,
+  "fields": {
+    "name": "xleb",
+    "category": "keyboard",
+    "description": "dasd",
+    "avatar": "avatars/photo1658686562.jpeg"
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 2,
+  "fields": {
+    "author": 1,
+    "product": 4,
+    "description": "такоес",
+    "rating": 5,
+    "moderated": false,
+    "created_at": "2022-08-27T08:01:45.568Z",
+    "updated_at": "2022-08-27T08:01:45.568Z"
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 3,
+  "fields": {
+    "author": 1,
+    "product": 1,
+    "description": "da",
+    "rating": 2,
+    "moderated": false,
+    "created_at": "2022-08-27T08:22:00.919Z",
+    "updated_at": "2022-08-27T08:49:46.103Z"
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 4,
+  "fields": {
+    "author": 1,
+    "product": 2,
+    "description": "dad adad ada",
+    "rating": 5,
+    "moderated": false,
+    "created_at": "2022-08-27T08:22:40.953Z",
+    "updated_at": "2022-08-27T08:22:40.953Z"
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 5,
+  "fields": {
+    "author": 1,
+    "product": 2,
+    "description": "super",
+    "rating": 3,
+    "moderated": false,
+    "created_at": "2022-08-27T08:23:20.034Z",
+    "updated_at": "2022-08-27T08:23:20.034Z"
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 6,
+  "fields": {
+    "author": 1,
+    "product": 1,
+    "description": "fufuf",
+    "rating": 5,
+    "moderated": true,
+    "created_at": "2022-08-27T08:36:11.188Z",
+    "updated_at": "2022-08-27T09:02:04.616Z"
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 7,
+  "fields": {
+    "author": 3,
+    "product": 2,
+    "description": "nfrja",
+    "rating": 4,
+    "moderated": false,
+    "created_at": "2022-08-27T10:16:58.212Z",
+    "updated_at": "2022-08-27T10:17:05.448Z"
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 8,
+  "fields": {
+    "author": 5,
+    "product": 1,
+    "description": "e1e1",
+    "rating": 4,
+    "moderated": true,
+    "created_at": "2022-08-27T11:54:08.469Z",
+    "updated_at": "2022-08-27T12:00:00.137Z"
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 9,
+  "fields": {
+    "author": 6,
+    "product": 1,
+    "description": "ddas",
+    "rating": 5,
+    "moderated": true,
+    "created_at": "2022-08-27T12:02:58.697Z",
+    "updated_at": "2022-08-27T12:04:35.408Z"
+  }
+}
+]

@@ -37,7 +37,7 @@ class RegisterView(CreateView):
         return next_url
 
 
-class ProfileView(LoginRequiredMixin, DetailView):
+class ProfileView(DetailView):
     model = get_user_model()
     template_name = 'profile_view.html'
 
@@ -50,41 +50,7 @@ class ProfileView(LoginRequiredMixin, DetailView):
 
 
 
-class ListProfile(PermissionRequiredMixin, ListView):
-    model = get_user_model()
-    template_name = "index_user.html"
-    context_object_name = "users"
-    paginate_by = 3
-
-    def get(self, request, *args, **kwargs):
-        self.form = self.get_search_form()
-        self.search_value = self.get_search_value()
-        return super().get(request, *args, **kwargs)
-
-    def get_queryset(self):
-        if self.search_value:
-            return get_user_model().objects.filter(
-                Q(name__icontains=self.search_value))
-        return get_user_model().objects.all()
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(object_list=object_list, **kwargs)
-        context["form"] = self.form
-        if self.search_value:
-            query = urlencode({'search': self.search_value})
-            context["query"] = query
-            context["search"] = self.search_value
-        return context
-
-    def get_search_form(self):
-        return SearchForm(self.request.GET)
-
-    def get_search_value(self):
-        if self.form.is_valid():
-            return self.form.cleaned_data.get("search")
-
-
-class ChangeProfileView(LoginRequiredMixin, UpdateView):
+class ChangeProfileView(PermissionRequiredMixin, UpdateView):
     model = get_user_model()
     form_class = UserChangeForm
     template_name = 'change_user.html'
@@ -115,6 +81,10 @@ class ChangeProfileView(LoginRequiredMixin, UpdateView):
 
         def form_invalid(self, form, profile_form):
             return self.render_to_response(self.get_context_data(form=form, profile_form=profile_form))
+
+    def has_permission(self):
+        print(self.get_object())
+        return self.request.user == self.get_object()
 
 
 class ChangePasswordView(PasswordChangeView):

@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-
+from django.forms import widgets
 from webapp.models import Product, Review
 
 
@@ -24,3 +24,9 @@ class ReviewForm(forms.ModelForm):
         if rating < 1 or rating > 5:
             raise ValidationError("Оценка должна быть от 1 до 5")
         return rating
+
+
+class ReviewModeratForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['moderated', 'description', 'rating']
