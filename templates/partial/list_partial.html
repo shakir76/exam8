@@ -8,18 +8,15 @@
                     <h6 class="card-subtitle mb-2 text-muted">Email: {{ review.author.email }}</h6>
                     <h6 class="card-subtitle mb-2 text-muted">Описания: {{ review.description }}</h6>
                     <h6 class="card-subtitle mb-2 text-muted">Оценка: {{ review.rating }}</h6>
-                    <p class="bg-warning"><a href="#"><img
-                            src="https://ru.seaicons.com/wp-content/uploads/2015/10/Preview-icon2.png"
+                    <p>
+                    <a href="{% url 'webapp:update_review' review.pk %}"><img
+                            src="https://ru.seaicons.com/wp-content/uploads/2015/11/Editing-Edit-icon.png"
                             width="25"
-                            height="25" alt="Просмотр"></a>
-                        <a href="#"><img
-                                src="https://ru.seaicons.com/wp-content/uploads/2015/11/Editing-Edit-icon.png"
-                                width="25"
-                                height="25" alt="Редактирования"></a>
-                        <a href="#"><img
-                                src="https://cdn-icons-png.flaticon.com/512/70/70757.png"
-                                width="25"
-                                height="25" alt="Удаления"></a></p>
+                            height="25" alt="Редактирования"></a>
+                    <a href="{% url 'webapp:delete_review' review.pk %}"><img
+                            src="https://cdn-icons-png.flaticon.com/512/70/70757.png"
+                            width="25"
+                            height="25" alt="Удаления"></a></p>
                 </div>
             </div>
         </div>

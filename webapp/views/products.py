@@ -34,6 +34,7 @@ class ListProduct(ListView):
             query = urlencode({'search': self.search_value})
             context["query"] = query
             context["search"] = self.search_value
+
         return context
 
     def get_search_form(self):
@@ -55,7 +56,13 @@ class ProductView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['reviews'] = Review.objects.filter(product=self.object)
+        review = Review.objects.filter(product=self.object)
+        averge_ratings = 0
+        for a in review:
+            averge_ratings += a.rating
+        averge_ratings /= len(review)
+        context['averge_ratings'] = averge_ratings
+        context['reviews'] = review
         return context
 
 
