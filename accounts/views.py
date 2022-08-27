@@ -14,6 +14,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from accounts.forms import MyUserCreationForm, UserChangeForm, ProfileChangeForm
 from accounts.models import Profile
 from webapp.forms import SearchForm
+from webapp.models import Review
 
 
 class RegisterView(CreateView):
@@ -39,18 +40,14 @@ class RegisterView(CreateView):
 class ProfileView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = 'profile_view.html'
-    paginate_by = 3
-    paginate_orphans = 0
+
 
     def get_context_data(self, **kwargs):
-        paginator = Paginator(self.get_object().projects.all(), self.paginate_by, self.paginate_orphans)
-        page_number = self.request.GET.get('page', 1)
-        page_objects = paginator.get_page(page_number)
         context = super().get_context_data(**kwargs)
-        context['page_obj'] = page_objects
-        context['projects'] = page_objects.object_list
-        context['is_paginated'] = page_objects.has_other_pages()
+        review = Review.objects.filter(author=self.object)
+        context['reviews'] = review
         return context
+
 
 
 class ListProfile(PermissionRequiredMixin, ListView):
@@ -85,6 +82,7 @@ class ListProfile(PermissionRequiredMixin, ListView):
     def get_search_value(self):
         if self.form.is_valid():
             return self.form.cleaned_data.get("search")
+
 
 class ChangeProfileView(LoginRequiredMixin, UpdateView):
     model = get_user_model()
@@ -124,4 +122,3 @@ class ChangePasswordView(PasswordChangeView):
 
     def get_success_url(self):
         return reverse('accounts:profile_view', kwargs={'pk': self.request.user.pk})
-
