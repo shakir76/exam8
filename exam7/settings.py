@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webapp',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -123,8 +124,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 LOGIN_URL = 'accounts:login'
-LOGOUT_REDIRECT_URL = 'tracker:index_list'
-LOGIN_REDIRECT_URL = 'tracker:index_list'
+LOGOUT_REDIRECT_URL = 'webapp:index'
+LOGIN_REDIRECT_URL = 'webapp:index'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = Path.joinpath(BASE_DIR, 'uploads')
